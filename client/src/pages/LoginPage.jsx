@@ -12,6 +12,10 @@ const LoginPage = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
+    if (currState === "Sign up" && !isDataSubmitted) {
+      setIsDataSubmitted(true)
+      return;
+    }
 
   };
 
@@ -28,14 +32,14 @@ const LoginPage = () => {
       >
         <h2 className="font-medium text-2xl flex justify-between items-center">
           {currState}
-          {!isDataSubmitted && (
+          {isDataSubmitted && (
             <img
               src={assets.arrow_icon}
               className="w-5 cursor-pointer"
               alt="toggle"
               onClick={() => {
                 setIsDataSubmitted(false);
-                setCurrState(currState === "Sign up" ? "Login" : "Sign up");
+                setCurrState(currState === "Sign up" ? "Sign up" : "Sign up");
               }}
             />
           )}

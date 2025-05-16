@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import Message from "../models/Message.js";
+import cloudinary from "../config/cloudinary.js";
 
 export const getUsersForSidebar = async (req, res) => {
     try {
@@ -73,5 +74,37 @@ export const markAsSeen = async (req, res) => {
     } catch (error) {
         console.error("Error marking messages as seen:", error);
         res.status(500).json({ success: false, message: "Error marking messages as seen" });
+    }
+}
+
+export const sendMessage = async (req, res) => {
+    try {
+        const { text, image } = req.body;
+
+        const receverId = req.params._id;
+        const sernderId = req.user._id;
+
+        let imgUrl;
+
+        if (image) {
+            const uploadResponse = await cloudinary.uploader.upload(image)
+            imgUrl = uploadResponse.secure_url;
+        }
+
+        const newMessage = await Message.create({
+            sernderId,
+            receverId,
+            text,
+            image: imgUrl,
+        })
+
+        res.json({
+            success: true,
+            newMessage
+        })
+
+    } catch (error) {
+        console.error("Error sending message:", error);
+        res.status(500).json({ success: false, message: "Error sending message" });
     }
 }

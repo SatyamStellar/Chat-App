@@ -13,84 +13,87 @@ const LoginPage = () => {
     e.preventDefault();
 
     if (currState === "Sign up" && !isDataSubmitted) {
-      setIsDataSubmitted(true)
+      setIsDataSubmitted(true);
       return;
     }
-
   };
 
   return (
-    <div className="min-h-screen bg-cover bg-center flex items-center justify-center gap-8 sm:justify-evenly max-sm:flex-col backdrop-blur-lg">
-      <div className="flex flex-col items-center justify-center">
-        <img src={assets.logo} alt="logo" className="w-[40%]" />
-        <h3 className="text-4xl text-white font-medium">Easy Chat</h3>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center px-4">
 
       <form
         onSubmit={onSubmitHandler}
-        className="border-2 bg-white/8 text-white border-gray-500 p-6 flex flex-col gap-6 rounded-lg shadow-lg"
+        className="bg-gray-800/50 backdrop-blur-md border border-gray-700 p-8 rounded-xl shadow-2xl w-full max-w-md"
       >
-        <h2 className="font-medium text-2xl flex justify-between items-center">
+        <h2 className="font-bold text-2xl text-white mb-6 flex justify-between items-center">
           {currState}
           {isDataSubmitted && (
-            <img
-              src={assets.arrow_icon}
-              className="w-5 cursor-pointer"
-              alt="toggle"
+            <button
+              type="button"
               onClick={() => {
                 setIsDataSubmitted(false);
-                setCurrState(currState === "Sign up" ? "Sign up" : "Sign up");
               }}
-            />
+              className="text-gray-400 hover:text-white transition"
+            >
+              <img src={assets.arrow_icon} alt="Back" className="w-5 rotate-90" />
+            </button>
           )}
         </h2>
 
         {currState === "Sign up" && !isDataSubmitted && (
-          <input
-            onChange={(e) => setFullName(e.target.value)}
-            value={fullName}
-            type="text"
-            className="p-2 border border-gray-500 rounded-md focus:outline-none"
-            placeholder="Full Name"
-            required
-          />
+          <div className="mb-4">
+            <input
+              onChange={(e) => setFullName(e.target.value)}
+              value={fullName}
+              type="text"
+              placeholder="Full Name"
+              required
+              className="w-full p-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
         )}
 
         {!isDataSubmitted && (
           <>
-            <input
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              type="email"
-              placeholder="Email Address"
-              required
-              className="p-2 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-            <input
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              type="password"
-              placeholder="Password"
-              required
-              className="p-2 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
+            <div className="mb-4">
+              <input
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                type="email"
+                placeholder="Email Address"
+                required
+                className="w-full p-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+            </div>
+            <div className="mb-4">
+              <input
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                type="password"
+                placeholder="Password"
+                required
+                className="w-full p-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+            </div>
           </>
         )}
 
         {currState === "Sign up" && isDataSubmitted && (
-          <textarea
-            rows={4}
-            onChange={(e) => setBio(e.target.value)}
-            value={bio}
-            className="p-2 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            required
-            placeholder="Add a short bio...."
-          ></textarea>
+          <div className="mb-4">
+            <textarea
+              rows={4}
+              onChange={(e) => setBio(e.target.value)}
+              value={bio}
+              className="w-full p-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              required
+              placeholder="Add a short bio..."
+            ></textarea>
+          </div>
         )}
 
         <button
           type="submit"
-          className="bg-indigo-500 text-white p-2 rounded-md hover:bg-indigo-600 transition duration-200"
+          className="w-full bg-gradient-to-r from-purple-500 to-indigo-600 text-white py-3 rounded-lg font-medium hover:from-purple-600 hover:to-indigo-700 transition duration-200 transform hover:scale-[1.02]"
         >
           {currState === "Sign up"
             ? isDataSubmitted
@@ -99,12 +102,12 @@ const LoginPage = () => {
             : "Login"}
         </button>
 
-        <div className="flex items-center gap-2 text-sm text-gray-300">
-          <input type="checkbox" required />
-          <p>Agree to the terms of use & privacy policy</p>
+        <div className="mt-5 flex items-center gap-2 text-sm text-gray-400">
+          <input type="checkbox" id="terms" required className="cursor-pointer" />
+          <label htmlFor="terms">Agree to the terms of use & privacy policy</label>
         </div>
 
-        <div className="flex flex-col gap-2 text-center">
+        <div className="mt-6 text-center">
           {currState === "Sign up" ? (
             <p className="text-sm text-gray-400">
               Already have an account?{" "}
@@ -113,7 +116,7 @@ const LoginPage = () => {
                   setCurrState("Login");
                   setIsDataSubmitted(false);
                 }}
-                className="font-medium text-violet-500 cursor-pointer"
+                className="font-medium text-violet-400 hover:text-violet-300 cursor-pointer transition"
               >
                 Login here
               </span>
@@ -126,7 +129,7 @@ const LoginPage = () => {
                   setCurrState("Sign up");
                   setIsDataSubmitted(false);
                 }}
-                className="font-medium text-violet-500 cursor-pointer"
+                className="font-medium text-violet-400 hover:text-violet-300 cursor-pointer transition"
               >
                 Click here
               </span>
@@ -139,4 +142,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-

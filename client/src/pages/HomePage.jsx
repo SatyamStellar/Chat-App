@@ -4,16 +4,14 @@ import LeftSideBar from "../components/LeftSideBar"
 import RightSidebar from "../components/RightSidebar"
 
 const HomePage = () => {
-
   const [selectedUser, setSelectedUser] = useState(false)
 
   return (
-    <div className=" w-full h-screen sm:px-[15%] sm:py-[5%]">
-      <div className={`backdrop-blur-md border-2 border-gray-500 rounded-2xl overflow-hidden h-[100%] grid grid-cols-1 relative] ${selectedUser ? 'md:grid-cols-[1fr_1.5fr_1fr] xl:grid-cols-[1fr_2fr_1fr]' : 'md:grid-cols-2'}`}>
-
+    <div className="w-full h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+      <div className={`h-full grid ${selectedUser ? 'md:grid-cols-[1fr_2fr_1fr]' : 'md:grid-cols-2'} transition-all duration-300`}>
         <LeftSideBar selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
         <ChatContainer selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
-        <RightSidebar selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
+        <RightSidebar selectedUser={selectedUser} />
       </div>
     </div>
   )

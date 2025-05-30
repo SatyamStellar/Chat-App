@@ -66,6 +66,22 @@ export const AuthProvider = ({ childern }) => {
         socket.disconnect();
     }
 
+    //update user profile
+
+    const updateProfile = async (body) => {
+        try {
+            const { data } = await axios.put('/api/auth/update-profile', body)
+            if (data.success) {
+                setAuthUser(data.user)
+                toast.success(data.message)
+            } else {
+                toast.error(data.message)
+            }
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }
+
     // Setting up socket connection
     const connectSocket = (userData) => {
         if (!userData || socket?.connected) return;
@@ -95,7 +111,11 @@ export const AuthProvider = ({ childern }) => {
         axios,
         authUser,
         onlineUser,
-        socket
+        socket,
+        login,
+        logout,
+        updateProfile,
+
     }
 
     return (

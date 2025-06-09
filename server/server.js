@@ -23,7 +23,7 @@ io.on("connection", (socket) => {
 
     if (userId) userSocketMap[userId] = socket.id
 
-    oi.emit("getOnlineUsers", Object.keys(userSocketMap));
+    io.emit("getOnlineUsers", Object.keys(userSocketMap));
 
     socket.on("disconnect", () => {
         console.log("user disconnect", userId)
